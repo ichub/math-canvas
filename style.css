@@ -1,0 +1,9 @@
+body, html {
+	overflow: hidden;
+	margin: 0px;
+}
+
+#myCanvas {
+	width: 100%;
+	height: 100%;
+}

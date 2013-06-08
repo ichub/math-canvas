@@ -7,3 +7,33 @@ body, html {
 	width: 100%;
 	height: 100%;
 }
+
+#options {
+	border-radius: 20px;
+	border: solid 2px;
+	border-color: #AAAAAA;
+	background-color: #FFFFFF;
+	z-index: 100;
+	position:fixed;
+    width:600px;
+    height:400px;
+    margin:-200px auto auto -300px;
+    top:50%;
+    left:50%;
+    text-align:center;
+	display: none;
+}
+
+#blinds {
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	margin: auto;
+	background-color: #000000;
+	top: 0;
+	left: 0;
+	position: absolute;
+	opacity: 0.5;
+	z-index: 50;
+	display: none;
+}

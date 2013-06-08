@@ -16,8 +16,8 @@ jQuery(function($) {
 
 	// size of each point in pixels
 	var pointDimensions = {
-		X: 10,
-		Y: 10,
+		X: 20,
+		Y: 20,
 	};
 
 	// dimensions are in amount of pixels
@@ -41,18 +41,22 @@ jQuery(function($) {
 		return "#" + R.toString(16) + G.toString(16) + B.toString(16);
 	};	
 
+	// calculates the red value of the pixel located at (x, y)
 	var calcR = function (x, y) {
-		return Math.sin(x) * 2;
+		return x * x;
 	};
 
+	// calculates the green value of the pixel located at (x, y)
 	var calcG = function (x, y) {
-		return Math.cos(y) * 2;
+		return y * y;
 	};
 
+	// calculates the blue value of the pixel located at (x, y)
 	var calcB = function (x, y) {
-		return Math.tan(x + y) * 2;
+		return x + y
 	};
 
+	// calculates the color of the pixel located at (x, y)
 	var calcColor = function (x, y) {
 		var r = Math.floor(calcR(x, y)) % 256;
 		var g = Math.floor(calcG(x, y)) % 256;
@@ -66,6 +70,7 @@ jQuery(function($) {
 		}
 	}
 
+	// draws all the pixels
 	var draw = function () {
 		for (var i = 0; i < displayDimensions.X; i++) {
 			for (var j = 0; j < displayDimensions.Y; j++) {

@@ -9,8 +9,7 @@ body, html {
 }
 
 #options {
-	border-radius: 20px;
-	border: solid 2px;
+	border: solid 1px;
 	border-color: #AAAAAA;
 	background-color: #FFFFFF;
 	z-index: 100;
@@ -36,23 +35,4 @@ body, html {
 	opacity: 0.5;
 	z-index: 50;
 	display: none;
-}
-
-#edit {
-	margin: 0px;
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	background-color: #AFAFAF;
-	border-top-color: #5F5F5F;
-	border-left-color: #5F5F5F;
-	border-right: none;
-	border-bottom: none;
-	width: 100px;
-	height: 25px;
-	border-radius: 10px 0px 0px 0px;
-}
-
-#edit:active {
-	background-color: #5F5F5F;
 }

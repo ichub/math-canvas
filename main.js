@@ -4,6 +4,13 @@ jQuery(function($) {
 	var canvas = $('#myCanvas')[0];
 	var ctx = canvas.getContext('2d');
 
+	// whether or not the options are currently being shown
+	var areOptionsEnabled = false;
+
+	// the amount of miliseconds it takes for the div to change
+	// its state when activated
+	var divSpeed = 200;
+
 	// the amount of space between each drawn pixel.
 	// does not affect the color calculations
 	var spacing = 0;
@@ -16,8 +23,8 @@ jQuery(function($) {
 
 	// size of each point in pixels
 	var pointDimensions = {
-		X: 20,
-		Y: 20,
+		X: 5,
+		Y: 5,
 	};
 
 	// dimensions are in amount of pixels
@@ -27,14 +34,14 @@ jQuery(function($) {
 	}
 
 	// shows the options div
-	hideDiv = function() {
-		$('#options').hide(100);
+	var hideDiv = function() {
+		$('#options').hide(divSpeed);
 		$('#blinds')[0].style.display = 'none';
 	};
 
 	// hides the options div
-	showDiv = function() {
-		$('#options').show(100);
+	var showDiv = function() {
+		$('#options').show(divSpeed);
 		$('#blinds')[0].style.display = 'inline';
 	};
 
@@ -55,17 +62,17 @@ jQuery(function($) {
 
 	// calculates the red value of the pixel located at (x, y)
 	var calcR = function (x, y) {
-		return x + y;
+		return x * x - y * y;
 	};
 
 	// calculates the green value of the pixel located at (x, y)
 	var calcG = function (x, y) {
-		return x - y;
+		return x * x - y * y;
 	};
 
 	// calculates the blue value of the pixel located at (x, y)
 	var calcB = function (x, y) {
-		return x - y
+		return x * x - y * y; 
 	};
 
 	// calculates the color of the pixel located at (x, y)
@@ -105,6 +112,14 @@ jQuery(function($) {
 		}
 	};
 
+	$(window).keydown(function(e) {
+		// if the escape key is pressed
+		if (e.which == 27) {
+			!areOptionsEnabled ? showDiv() : hideDiv();
+			areOptionsEnabled = !areOptionsEnabled;
+		}
+	});
+	
 	$(window).resize(onResize);
 	onResize();
 });

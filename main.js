@@ -78,19 +78,19 @@ jQuery(function($) {
 
 	// calculates the red value of the pixel located at (x, y)
 	var calcR = function (x, y) {
-		return eval("(function() {" + redFunc + ";}())");
+		return eval("(function() { return " + redFunc + ";}())");
 		return x * x - y * y;
 	};
 
 	// calculates the green value of the pixel located at (x, y)
 	var calcG = function (x, y) {
-		return eval("(function() {" + greenFunc + "}())");
+		return eval("(function() { return " + greenFunc + "}())");
 		return x * x - y * y;
 	};
 
 	// calculates the blue value of the pixel located at (x, y)
 	var calcB = function (x, y) {
-		return eval("(function() {" + blueFunc + ";}())");
+		return eval("(function() { return " + blueFunc + ";}())");
 		return x * x - y * y; 
 	};
 

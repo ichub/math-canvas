@@ -51,6 +51,16 @@ jQuery(function($) {
 		$('#blinds')[0].style.display = 'inline';
 	};
 
+	var hideWorking = function() {
+		$('#working').hide(divSpeed);
+		$('#blinds')[0].style.display = 'none';
+	}
+
+	var showWorking = function() {
+		$('#working').show(divSpeed, draw);
+		$('#blinds')[0].style.display = 'inline';
+	}
+
 	// resizes the canvas so it fits the whole screen
 	var onResize = function() {
 		canvas.width = window.innerWidth;
@@ -173,8 +183,9 @@ jQuery(function($) {
 			!areOptionsEnabled ? showDiv() : hideDiv();
 			areOptionsEnabled = !areOptionsEnabled;
 		}
-		else if (e.which == 13) {
-			draw();
+		else if (e.which == 13 && !areOptionsEnabled) {
+			showWorking();
+			hideWorking();
 		}
 	});
 	

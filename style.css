@@ -21,6 +21,21 @@ body, html {
 	display: none;
 }
 
+#working {
+	z-index: 99;
+	position:fixed;
+	border: none;
+    width:100px;
+    height:25px;
+    margin:-50px auto auto -25px;
+    top:50%;
+    left:50%;
+    text-align:center;
+	display: none;
+	background-color: #000000;
+	color: #FFFFFF;
+}
+
 #blinds {
 	text-align: center;
 	width: 100%;

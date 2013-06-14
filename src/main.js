@@ -23,9 +23,9 @@ jQuery(function($) {
 
 	// functions that are inputed by the user, and are used
 	// to calculate the color of each pixel
-	var redFunction = "return 100;";
-	var greenFunction = "return 100;";
-	var blueFunction = "return 100;";
+	var redFunction = "100;";
+	var greenFunction = "100;";
+	var blueFunction = "100;";
 
 	// size of each point in pixels
 	var pointDimensions = {
@@ -41,23 +41,23 @@ jQuery(function($) {
 
 	// shows the options div
 	var hideDiv = function() {
-		$('#options').hide(divSpeed);
+		$('#options')[0].style.display = 'none';
 		$('#blinds')[0].style.display = 'none';
 	};
 
 	// hides the options div
 	var showDiv = function() {
-		$('#options').show(divSpeed);
+		$('#options')[0].style.display = 'inline';
 		$('#blinds')[0].style.display = 'inline';
 	};
 
 	var hideWorking = function() {
-		$('#working').hide(divSpeed);
+		$('#working')[0].style.display = 'none';
 		$('#blinds')[0].style.display = 'none';
 	}
 
 	var showWorking = function() {
-		$('#working').show(divSpeed, draw);
+		$('#working')[0].style.display = 'inline';
 		$('#blinds')[0].style.display = 'inline';
 	}
 
@@ -79,19 +79,16 @@ jQuery(function($) {
 	// calculates the red value of the pixel located at (x, y)
 	var calcR = function (x, y) {
 		return eval("(function() { return " + redFunc + ";}())");
-		return x * x - y * y;
 	};
 
 	// calculates the green value of the pixel located at (x, y)
 	var calcG = function (x, y) {
 		return eval("(function() { return " + greenFunc + "}())");
-		return x * x - y * y;
 	};
 
 	// calculates the blue value of the pixel located at (x, y)
 	var calcB = function (x, y) {
 		return eval("(function() { return " + blueFunc + ";}())");
-		return x * x - y * y; 
 	};
 
 	// calculates the color of the pixel located at (x, y)
@@ -135,48 +132,6 @@ jQuery(function($) {
 		}
 	};
 
-	var drawSplit = function() {
-		var nextPixel = function(currentI, currentJ) {
-			var newI = currentI;
-			var newJ = currentJ;
-
-			newI++;
-			if (newI > displayDimensions.X) {
-				newJ = 0;
-				newJ++;
-			}
-
-			return [newI, newJ];
-		};
-
-		var drawPixel = function(i, j) {
-			if (i == 0 && j == 0)
-				return;
-		
-			var x = i * (pointDimensions.X + spacing);
-			var y = j * (pointDimensions.Y + spacing);
-		
-			if (useActualCoordinates) {
-				ctx.fillStyle = calcColor(x, y);
-			}
-		
-			else {
-				ctx.fillStyle = calcColor(i, j);
-			}
-		
-			ctx.fillRect(
-						x,
-						y, 
-						pointDimensions.X,
-					   	pointDimensions.Y);
-			
-			var next = nextPixel(i, j);
-			setTimeOut(drawPixel(next[0], next[1]), 1);
-		}
-
-		drawPixel(0, 1);
-	};
-
 	$(window).keydown(function(e) {
 		// if the escape key is pressed
 		if (e.which == 27) {
@@ -184,7 +139,10 @@ jQuery(function($) {
 			areOptionsEnabled = !areOptionsEnabled;
 		}
 		else if (e.which == 13 && !areOptionsEnabled) {
+			console.log("working")
 			showWorking();
+			draw();
+			console.log("stop working")
 			hideWorking();
 		}
 	});
@@ -192,3 +150,4 @@ jQuery(function($) {
 	$(window).resize(onResize);
 	onResize();
 });
+

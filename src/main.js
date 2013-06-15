@@ -41,24 +41,24 @@ jQuery(function($) {
 
 	// shows the options div
 	var hideDiv = function() {
-		$('#options')[0].style.display = 'none';
-		$('#blinds')[0].style.display = 'none';
+		$('#options').css({'display':'none'});
+		$('#blinds').css({'display':'none'});
 	};
 
 	// hides the options div
 	var showDiv = function() {
-		$('#options')[0].style.display = 'inline';
-		$('#blinds')[0].style.display = 'inline';
+		$('#options').css({'display':'inline'});
+		$('#blinds').css({'display':'inline'});
 	};
 
 	var hideWorking = function() {
-		$('#working')[0].style.display = 'none';
-		$('#blinds')[0].style.display = 'none';
+		$('#working').css({'display':'none'});
+		$('#blinds').css({'display':'none'});
 	}
 
 	var showWorking = function() {
-		$('#working')[0].style.display = 'inline';
-		$('#blinds')[0].style.display = 'inline';
+		$('#working').css({'display':'inline'});
+		$('#blinds').css({'display':'inline'});
 	}
 
 	// resizes the canvas so it fits the whole screen

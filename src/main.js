@@ -29,8 +29,8 @@ jQuery(function($) {
 
 	// size of each point in pixels
 	var pointDimensions = {
-		X: 5,
-		Y: 5,
+		X: 7,
+		Y: 7,
 	};
 
 	// dimensions are in amount of pixels
@@ -65,10 +65,9 @@ jQuery(function($) {
 	var onResize = function() {
 		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight;
-		displayDimensions.X = window.innerWidth / (pointDimensions.X - 1);
-		displayDimensions.Y = window.innerHeight / (pointDimensions.Y - 1);
-		//draw();
-		drawAnimation();
+		displayDimensions.X = window.innerWidth / (pointDimensions.X);
+		displayDimensions.Y = window.innerHeight / (pointDimensions.Y);
+		draw();
 	};
 
 	// converts an rgb value to a string that can be used
@@ -148,7 +147,7 @@ jQuery(function($) {
 
 		// the index of the current pixel to be drawn
 		var cursor = {
-			x: 0,
+			x: -1,
 			y: 0,
 		}
 
@@ -156,7 +155,7 @@ jQuery(function($) {
 		// more pixels to be drawn, returns false. otherwise returns true
 		var nextPixel = function() {
 			cursor.x++;
-			if (cursor.x >= displayDimensions.X - 100) {
+			if (cursor.x >= displayDimensions.X) {
 				console.log(0);
 				cursor.x = 0;
 				cursor.y++;
@@ -168,24 +167,39 @@ jQuery(function($) {
 			return true;
 		}
 
-		// draws the next pixel to the screen. returns true if it drew a pixel,
-		// and false otherwise.
-		var drawNext = function() {
-			if (nextPixel()) {
-				var position = getPixelPosition(cursor.x, cursor.y);
-				ctx.fillRect(
-							position.x,
-							position.y, 
-							pointDimensions.X,
-						   	pointDimensions.Y);
-				return true;
+		// draws the next *amount* pixels to the screen. returns true if it drew 
+		// all of the pixels, and false otherwise.
+		var drawNext = function(amount) {
+			var toReturn = false;
+
+			for (var i = 0; i < amount; i++) {
+				if (nextPixel()) {
+					var position = getPixelPosition(cursor.x, cursor.y);
+
+					if (useActualCoordinates) {	
+						ctx.fillStyle = calcColor(position.x, position.y);
+					}
+					else {
+						ctx.fillStyle = calcColor(cursor.x, cursor.y);
+					}
+
+					ctx.fillRect(
+								position.x,
+								position.y, 
+								pointDimensions.X,
+							   	pointDimensions.Y);
+
+					toReturn = true;
+					continue;
+				}
+				toReturn = false;
 			}
-			return false;
+			return toReturn;
 		}
 
 		// function that loops through every pixel, and draws it.
 		var drawLoop = function() {
-			if (drawNext()) {
+			if (drawNext(5000)) {
 				setTimeout(drawLoop, 1);
 			}
 		}
@@ -200,11 +214,7 @@ jQuery(function($) {
 			areOptionsEnabled = !areOptionsEnabled;
 		}
 		else if (e.which == 13 && !areOptionsEnabled) {
-			console.log("working")
-			showWorking();
-			draw();
-			console.log("stop working")
-			hideWorking();
+			onResize();
 		}
 	});
 	

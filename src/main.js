@@ -150,4 +150,3 @@ jQuery(function($) {
 	$(window).resize(onResize);
 	onResize();
 });
-

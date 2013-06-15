@@ -11,7 +11,7 @@
 			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 647,
+				"buffer_size": 610,
 				"line_ending": "Windows"
 			}
 		},
@@ -19,15 +19,7 @@
 			"file": "src/main.js",
 			"settings":
 			{
-				"buffer_size": 3915,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/Ivan/Documents/asd",
-			"settings":
-			{
-				"buffer_size": 674,
+				"buffer_size": 3914,
 				"line_ending": "Windows"
 			}
 		},
@@ -35,7 +27,7 @@
 			"file": "src/style.css",
 			"settings":
 			{
-				"buffer_size": 1037,
+				"buffer_size": 1050,
 				"line_ending": "Windows"
 			}
 		}
@@ -92,6 +84,7 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Ivan/Documents/asd",
 		"/C/Users/Ivan/Dev/MathCanvas/mathcanvas.sublime-project",
 		"/C/Program Files (x86)/Zend/Apache2/conf/httpd.conf",
 		"/C/Users/Ivan/Dev/MathCanvas/style.css",
@@ -125,6 +118,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"left",
 			"\\t",
 			"\\n",
 			" ",
@@ -161,7 +155,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -169,15 +163,15 @@
 					"file": "src/index.html",
 					"settings":
 					{
-						"buffer_size": 647,
+						"buffer_size": 610,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								647,
-								647
+								100,
+								100
 							]
 						],
 						"settings":
@@ -196,15 +190,15 @@
 					"file": "src/main.js",
 					"settings":
 					{
-						"buffer_size": 3915,
+						"buffer_size": 3914,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3915,
-								3915
+								697,
+								697
 							]
 						],
 						"settings":
@@ -213,51 +207,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1602.0,
+						"translation.y": 1304.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/C/Users/Ivan/Documents/asd",
-					"settings":
-					{
-						"buffer_size": 674,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								674,
-								450
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "src/style.css",
 					"settings":
 					{
-						"buffer_size": 1037,
+						"buffer_size": 1050,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								508,
-								508
+								1050,
+								1050
 							]
 						],
 						"settings":
@@ -265,7 +233,7 @@
 							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 533.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -315,6 +283,14 @@
 		"selected_items":
 		[
 			[
+				"in",
+				"src/index.html"
+			],
+			[
+				"s",
+				"src/style.css"
+			],
+			[
 				"main",
 				"src/main.js"
 			],
@@ -329,10 +305,6 @@
 			[
 				"ma",
 				"mathcanvas.sublime-project"
-			],
-			[
-				"in",
-				"src/index.html"
 			]
 		],
 		"width": 0.0

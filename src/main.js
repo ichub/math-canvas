@@ -67,7 +67,8 @@ jQuery(function($) {
 		canvas.height = window.innerHeight;
 		displayDimensions.X = window.innerWidth / (pointDimensions.X - 1);
 		displayDimensions.Y = window.innerHeight / (pointDimensions.Y - 1);
-		draw();
+		//draw();
+		drawAnimation();
 	};
 
 	// converts an rgb value to a string that can be used
@@ -105,6 +106,14 @@ jQuery(function($) {
 		}
 	}
 
+	// gets the pixel position given its index
+	var getPixelPosition = function(i, j) {
+		return {
+			x: i * (pointDimensions.X + spacing),
+			y: j * (pointDimensions.X + spacing),
+		};
+	}
+
 	// draws all the pixels
 	var draw = function () {
 		redFunc = $('#redFunc').val();
@@ -114,23 +123,75 @@ jQuery(function($) {
 		for (var i = 0; i < displayDimensions.X; i++) {
 			for (var j = 0; j < displayDimensions.Y; j++) {
 
-				var x = i * (pointDimensions.X + spacing);
-				var y = j * (pointDimensions.Y + spacing);
-				if (useActualCoordinates) {
-					ctx.fillStyle = calcColor(x, y);
+				var position = getPixelPosition(i, j);
+				if (useActualCoordinates) {	
+					ctx.fillStyle = calcColor(position.x, position.y);
 				}
 				else {
 					ctx.fillStyle = calcColor(i, j);
 				}
 
 				ctx.fillRect(
-						x,
-						y, 
+						position.x,
+						position.y, 
 						pointDimensions.X,
 					   	pointDimensions.Y);
 			}
 		}
 	};
+
+	// draws all the pixels one by one, without hanging up the app
+	var drawAnimation = function() {
+		redFunc = $('#redFunc').val();
+		greenFunc = $('#greenFunc').val();
+		blueFunc = $('#blueFunc').val();
+
+		// the index of the current pixel to be drawn
+		var cursor = {
+			x: 0,
+			y: 0,
+		}
+
+		// sets the cursor to the index of the next pixel. if there are no
+		// more pixels to be drawn, returns false. otherwise returns true
+		var nextPixel = function() {
+			cursor.x++;
+			if (cursor.x >= displayDimensions.X - 100) {
+				console.log(0);
+				cursor.x = 0;
+				cursor.y++;
+				
+				if (cursor.y > displayDimensions.X + 1) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		// draws the next pixel to the screen. returns true if it drew a pixel,
+		// and false otherwise.
+		var drawNext = function() {
+			if (nextPixel()) {
+				var position = getPixelPosition(cursor.x, cursor.y);
+				ctx.fillRect(
+							position.x,
+							position.y, 
+							pointDimensions.X,
+						   	pointDimensions.Y);
+				return true;
+			}
+			return false;
+		}
+
+		// function that loops through every pixel, and draws it.
+		var drawLoop = function() {
+			if (drawNext()) {
+				setTimeout(drawLoop, 1);
+			}
+		}
+
+		drawLoop();
+	}
 
 	$(window).keydown(function(e) {
 		// if the escape key is pressed

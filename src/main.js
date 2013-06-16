@@ -29,8 +29,8 @@ jQuery(function($) {
 
 	// size of each point in pixels
 	var pointDimensions = {
-		X: 7,
-		Y: 7,
+		X: 6,
+		Y: 6,
 	};
 
 	// dimensions are in amount of pixels
@@ -77,25 +77,25 @@ jQuery(function($) {
 	};	
 
 	// calculates the red value of the pixel located at (x, y)
-	var calcR = function (x, y) {
+	var calcR = function (x, y, i, j) {
 		return eval("(function() { return " + redFunc + ";}())");
 	};
 
 	// calculates the green value of the pixel located at (x, y)
-	var calcG = function (x, y) {
+	var calcG = function (x, y, i, j) {
 		return eval("(function() { return " + greenFunc + "}())");
 	};
 
 	// calculates the blue value of the pixel located at (x, y)
-	var calcB = function (x, y) {
+	var calcB = function (x, y, i, j) {
 		return eval("(function() { return " + blueFunc + ";}())");
 	};
 
 	// calculates the color of the pixel located at (x, y)
-	var calcColor = function (x, y) {
-		var r = Math.floor(Math.abs(calcR(x, y))) % 256;
-		var g = Math.floor(Math.abs(calcG(x, y))) % 256;
-		var b = Math.floor(Math.abs(calcB(x, y))) % 256;
+	var calcColor = function (x, y, i, j) {
+		var r = Math.floor(Math.abs(calcR(x, y, i, j))) % 256;
+		var g = Math.floor(Math.abs(calcG(x, y, i, j))) % 256;
+		var b = Math.floor(Math.abs(calcB(x, y, i, j))) % 256;
 
 		if (r == undefined | g == undefined | b == undefined) {
 			return RGB(100, 100, 100);
@@ -123,12 +123,7 @@ jQuery(function($) {
 			for (var j = 0; j < displayDimensions.Y; j++) {
 
 				var position = getPixelPosition(i, j);
-				if (useActualCoordinates) {	
-					ctx.fillStyle = calcColor(position.x, position.y);
-				}
-				else {
-					ctx.fillStyle = calcColor(i, j);
-				}
+				ctx.fillStyle = calcColor(position.x, position.y, i, j);
 
 				ctx.fillRect(
 						position.x,
@@ -174,15 +169,9 @@ jQuery(function($) {
 
 			for (var i = 0; i < amount; i++) {
 				if (nextPixel()) {
+					
 					var position = getPixelPosition(cursor.x, cursor.y);
-
-					if (useActualCoordinates) {	
-						ctx.fillStyle = calcColor(position.x, position.y);
-					}
-					else {
-						ctx.fillStyle = calcColor(cursor.x, cursor.y);
-					}
-
+					ctx.fillStyle = calcColor(position.x, position.y, cursor.x, cursor.y);
 					ctx.fillRect(
 								position.x,
 								position.y, 

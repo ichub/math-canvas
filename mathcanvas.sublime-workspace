@@ -3,6 +3,30 @@
 	{
 		"selected_items":
 		[
+			[
+				"for",
+				"for	for (…) {…}"
+			],
+			[
+				"disp",
+				"displayDimensions"
+			],
+			[
+				"get",
+				"getPixelPosition"
+			],
+			[
+				"ne",
+				"nextPixel"
+			],
+			[
+				"dimen",
+				"displayDimensions"
+			],
+			[
+				"point",
+				"pointDimensions"
+			]
 		]
 	},
 	"buffers":
@@ -19,7 +43,7 @@
 			"file": "src/main.js",
 			"settings":
 			{
-				"buffer_size": 3914,
+				"buffer_size": 5507,
 				"line_ending": "Windows"
 			}
 		},
@@ -118,6 +142,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"6",
 			"left",
 			"\\t",
 			"\\n",
@@ -190,15 +215,15 @@
 					"file": "src/main.js",
 					"settings":
 					{
-						"buffer_size": 3914,
+						"buffer_size": 5507,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								697,
-								697
+								953,
+								954
 							]
 						],
 						"settings":
@@ -207,7 +232,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1304.0,
+						"translation.y": 181.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -233,7 +258,7 @@
 							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 533.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

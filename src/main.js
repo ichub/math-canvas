@@ -15,12 +15,6 @@ jQuery(function($) {
 	// does not affect the color calculations
 	var spacing = 0;
 
-	// if true, then the x and y parameters of the color
-	// calculation functions will be the actual position of 
-	// the square. otherwise, the number of the point
-	// will be passed - its number horizontaly and vertically
-	var useActualCoordinates = true;
-
 	// functions that are inputed by the user, and are used
 	// to calculate the color of each pixel
 	var redFunction = "100;";
@@ -169,7 +163,7 @@ jQuery(function($) {
 
 			for (var i = 0; i < amount; i++) {
 				if (nextPixel()) {
-					
+
 					var position = getPixelPosition(cursor.x, cursor.y);
 					ctx.fillStyle = calcColor(position.x, position.y, cursor.x, cursor.y);
 					ctx.fillRect(

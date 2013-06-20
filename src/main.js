@@ -75,6 +75,9 @@ jQuery(function($) {
 	// converts an rgb value to a string that can be used
 	// to style each point
 	var RGB = function (R, G, B) {
+		if (R == undefined || G == undefined || B == undefined)
+			return '#FFFFFF';
+
 		return "#" + R.toString(16) + G.toString(16) + B.toString(16);
 	};	
 
@@ -131,7 +134,12 @@ jQuery(function($) {
 				var position = getPixelPosition(i, j);
 				var x = position.x;
 				var y = position.y;
-				colors[i + j * displayDimensions.y] = calcColor(x, y, i, j, t);
+
+				var r = Math.floor(Math.abs(eval("(function() { return " + redFunc + ";}())"))) % 256;
+				var g = Math.floor(Math.abs(eval("(function() { return " + greenFunc + ";}())"))) % 256;
+				var b = Math.floor(Math.abs(eval("(function() { return " + blueFunc + ";}())"))) % 256;
+
+				colors[i + j * displayDimensions.y] = RGB(r, g, b);
 			}
 		}
 	};

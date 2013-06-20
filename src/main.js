@@ -21,8 +21,8 @@ jQuery(function($) {
 	var greenFunction = "100;";
 	var blueFunction = "100;";
 
-	// the time when the canvas was last drawn on
-	var lastDrawTime = new Date();
+	// the amount of times the screen has been refreshed
+	var amountOfTimesDrawn = 0
 
 	// the id of the interval which draws on the screen
 	var drawIntevalId = null;
@@ -115,8 +115,8 @@ jQuery(function($) {
 		};
 	}
 
-	var proccessTime = function(date) {
-		return Math.floor((date.getTime() % 100000));
+	var proccessTime = function(times) {
+		return times
 	};
 
 	var calculateColors = function() {
@@ -124,8 +124,7 @@ jQuery(function($) {
 		greenFunc = $('#greenFunc').val();
 		blueFunc = $('#blueFunc').val();
 
-		lastDrawTime = new Date();
-		var t = proccessTime(lastDrawTime);
+		var t = proccessTime(amountOfTimesDrawn++);
 
 		for (var i = 0; i < displayDimensions.x; i++) {
 			for (var j = 0; j < displayDimensions.y; j++) {
@@ -229,9 +228,6 @@ jQuery(function($) {
 			}
 
 			areOptionsEnabled = !areOptionsEnabled;
-		}
-		else if (e.which == 13 && !areOptionsEnabled) {
-			onResize();
 		}
 	});
 	

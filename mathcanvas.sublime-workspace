@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"draw",
+				"drawAnimation"
+			],
+			[
 				"for",
 				"for	for (…) {…}"
 			],
@@ -35,7 +39,7 @@
 			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 610,
+				"buffer_size": 604,
 				"line_ending": "Windows"
 			}
 		},
@@ -43,7 +47,7 @@
 			"file": "src/main.js",
 			"settings":
 			{
-				"buffer_size": 5507,
+				"buffer_size": 5115,
 				"line_ending": "Windows"
 			}
 		},
@@ -188,15 +192,15 @@
 					"file": "src/index.html",
 					"settings":
 					{
-						"buffer_size": 610,
+						"buffer_size": 604,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								100,
-								100
+								295,
+								295
 							]
 						],
 						"settings":
@@ -215,15 +219,15 @@
 					"file": "src/main.js",
 					"settings":
 					{
-						"buffer_size": 5507,
+						"buffer_size": 5115,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								953,
-								954
+								783,
+								783
 							]
 						],
 						"settings":
@@ -232,7 +236,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 181.0,
+						"translation.y": 13.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

@@ -23,14 +23,14 @@ jQuery(function($) {
 
 	// size of each point in pixels
 	var pointDimensions = {
-		X: 6,
-		Y: 6,
+		x: 6,
+		y: 6,
 	};
 
 	// dimensions are in amount of pixels
 	var displayDimensions = {
-		X: 100,
-		Y: 50,
+		x: 100,
+		y: 50,
 	}
 
 	// shows the options div
@@ -59,8 +59,8 @@ jQuery(function($) {
 	var onResize = function() {
 		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight;
-		displayDimensions.X = window.innerWidth / (pointDimensions.X);
-		displayDimensions.Y = window.innerHeight / (pointDimensions.Y);
+		displayDimensions.x = window.innerWidth / (pointDimensions.x);
+		displayDimensions.y = window.innerHeight / (pointDimensions.y);
 		draw();
 	};
 
@@ -102,8 +102,8 @@ jQuery(function($) {
 	// gets the pixel position given its index
 	var getPixelPosition = function(i, j) {
 		return {
-			x: i * (pointDimensions.X + spacing),
-			y: j * (pointDimensions.X + spacing),
+			x: i * (pointDimensions.x + spacing),
+			y: j * (pointDimensions.y + spacing),
 		};
 	}
 
@@ -113,8 +113,8 @@ jQuery(function($) {
 		greenFunc = $('#greenFunc').val();
 		blueFunc = $('#blueFunc').val();
 
-		for (var i = 0; i < displayDimensions.X; i++) {
-			for (var j = 0; j < displayDimensions.Y; j++) {
+		for (var i = 0; i < displayDimensions.x; i++) {
+			for (var j = 0; j < displayDimensions.x; j++) {
 
 				var position = getPixelPosition(i, j);
 				ctx.fillStyle = calcColor(position.x, position.y, i, j);
@@ -122,8 +122,8 @@ jQuery(function($) {
 				ctx.fillRect(
 						position.x,
 						position.y, 
-						pointDimensions.X,
-					   	pointDimensions.Y);
+						pointDimensions.x,
+					   	pointDimensions.y);
 			}
 		}
 	};
@@ -144,12 +144,12 @@ jQuery(function($) {
 		// more pixels to be drawn, returns false. otherwise returns true
 		var nextPixel = function() {
 			cursor.x++;
-			if (cursor.x >= displayDimensions.X) {
+			if (cursor.x >= displayDimensions.x) {
 				console.log(0);
 				cursor.x = 0;
 				cursor.y++;
 				
-				if (cursor.y > displayDimensions.X + 1) {
+				if (cursor.y > displayDimensions.x + 1) {
 					return false;
 				}
 			}
@@ -169,8 +169,8 @@ jQuery(function($) {
 					ctx.fillRect(
 								position.x,
 								position.y, 
-								pointDimensions.X,
-							   	pointDimensions.Y);
+								pointDimensions.x,
+							   	pointDimensions.y);
 
 					toReturn = true;
 					continue;
@@ -182,7 +182,7 @@ jQuery(function($) {
 
 		// function that loops through every pixel, and draws it.
 		var drawLoop = function() {
-			if (drawNext(5000)) {
+			if (drawNext(12)) {
 				setTimeout(drawLoop, 1);
 			}
 		}

@@ -21,10 +21,16 @@ jQuery(function($) {
 	var greenFunction = "100;";
 	var blueFunction = "100;";
 
+	// the time when the canvas was last drawn on
+	var lastDrawTime = new Date();
+
+	// the id of the interval which draws on the screen
+	var drawIntevalId = null;
+
 	// size of each point in pixels
 	var pointDimensions = {
-		x: 6,
-		y: 6,
+		x: 20,
+		y: 20,
 	};
 
 	// dimensions are in amount of pixels
@@ -61,7 +67,6 @@ jQuery(function($) {
 		canvas.height = window.innerHeight;
 		displayDimensions.x = window.innerWidth / (pointDimensions.x);
 		displayDimensions.y = window.innerHeight / (pointDimensions.y);
-		draw();
 	};
 
 	// converts an rgb value to a string that can be used
@@ -71,25 +76,25 @@ jQuery(function($) {
 	};	
 
 	// calculates the red value of the pixel located at (x, y)
-	var calcR = function (x, y, i, j) {
+	var calcR = function (x, y, i, j, t) {
 		return eval("(function() { return " + redFunc + ";}())");
 	};
 
 	// calculates the green value of the pixel located at (x, y)
-	var calcG = function (x, y, i, j) {
+	var calcG = function (x, y, i, j, t) {
 		return eval("(function() { return " + greenFunc + "}())");
 	};
 
 	// calculates the blue value of the pixel located at (x, y)
-	var calcB = function (x, y, i, j) {
+	var calcB = function (x, y, i, j, t) {
 		return eval("(function() { return " + blueFunc + ";}())");
 	};
 
 	// calculates the color of the pixel located at (x, y)
-	var calcColor = function (x, y, i, j) {
-		var r = Math.floor(Math.abs(calcR(x, y, i, j))) % 256;
-		var g = Math.floor(Math.abs(calcG(x, y, i, j))) % 256;
-		var b = Math.floor(Math.abs(calcB(x, y, i, j))) % 256;
+	var calcColor = function (x, y, i, j, t) {
+		var r = Math.floor(Math.abs(calcR(x, y, i, j, t))) % 256;
+		var g = Math.floor(Math.abs(calcG(x, y, i, j, t))) % 256;
+		var b = Math.floor(Math.abs(calcB(x, y, i, j, t))) % 256;
 
 		if (r == undefined | g == undefined | b == undefined) {
 			return RGB(100, 100, 100);
@@ -107,17 +112,24 @@ jQuery(function($) {
 		};
 	}
 
+	var proccessTime = function(date) {
+		return Math.floor((date.getTime() / 10));
+	};
+
 	// draws all the pixels
 	var draw = function () {
 		redFunc = $('#redFunc').val();
 		greenFunc = $('#greenFunc').val();
 		blueFunc = $('#blueFunc').val();
 
+		lastDrawTime = new Date();
+		var time = proccessTime(lastDrawTime);
+
 		for (var i = 0; i < displayDimensions.x; i++) {
 			for (var j = 0; j < displayDimensions.x; j++) {
 
 				var position = getPixelPosition(i, j);
-				ctx.fillStyle = calcColor(position.x, position.y, i, j);
+				ctx.fillStyle = calcColor(position.x, position.y, i, j, time);
 
 				ctx.fillRect(
 						position.x,
@@ -133,6 +145,9 @@ jQuery(function($) {
 		redFunc = $('#redFunc').val();
 		greenFunc = $('#greenFunc').val();
 		blueFunc = $('#blueFunc').val();
+
+		lastDrawTime = new Date();
+		var time = proccessTime(lastDrawTime);
 
 		// the index of the current pixel to be drawn
 		var cursor = {
@@ -165,7 +180,7 @@ jQuery(function($) {
 				if (nextPixel()) {
 
 					var position = getPixelPosition(cursor.x, cursor.y);
-					ctx.fillStyle = calcColor(position.x, position.y, cursor.x, cursor.y);
+					ctx.fillStyle = calcColor(position.x, position.y, cursor.x, cursor.y, time);
 					ctx.fillRect(
 								position.x,
 								position.y, 
@@ -193,7 +208,15 @@ jQuery(function($) {
 	$(window).keydown(function(e) {
 		// if the escape key is pressed
 		if (e.which == 27) {
-			!areOptionsEnabled ? showDiv() : hideDiv();
+			clearInterval(drawIntevalId);
+			if (!areOptionsEnabled) {
+				showDiv();
+			}
+			else {
+				hideDiv();
+				drawIntevalId = setInterval(draw, 1);
+			}
+
 			areOptionsEnabled = !areOptionsEnabled;
 		}
 		else if (e.which == 13 && !areOptionsEnabled) {
@@ -203,4 +226,6 @@ jQuery(function($) {
 	
 	$(window).resize(onResize);
 	onResize();
+
+	drawIntevalId = setInterval(draw, 1);
 });

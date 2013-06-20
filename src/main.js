@@ -4,6 +4,11 @@ jQuery(function($) {
 	var canvas = $('#myCanvas')[0];
 	var ctx = canvas.getContext('2d');
 
+	//enable-time checkbox
+	var timeCheckbox = $('#timeInput')[0];
+	//is anitmation enabled?
+	var timeEnabled = timeCheckbox.checked;
+
 	// whether or not the options are currently being shown
 	var areOptionsEnabled = false;
 
@@ -29,15 +34,20 @@ jQuery(function($) {
 
 	// size of each point in pixels
 	var pointDimensions = {
-		X: 1,
-		Y: 1,
+		X: 10,
+		Y: 10,
 	};
 
 	// dimensions are in amount of pixels
 	var displayDimensions = {
 		X: 100,
 		Y: 50,
-	}
+	};
+
+	// updates the timeEnabled var
+	var updateTime = function() {
+		timeEnabled = timeCheckbox.checked;
+	};
 
 	// hides the options div
 	var hideDiv = function() {
@@ -73,36 +83,43 @@ jQuery(function($) {
 	// converts an rgb value to a string that can be used
 	// to style each point
 	var RGB = function (R, G, B) {
-		return "#" + R.toString(16) + G.toString(16) + B.toString(16);
+		return "#" + (R < 16 ? '0' : '') + R.toString(16) + (G < 16 ? '0' : '') + G.toString(16) + (B < 16 ? '0' : '') + B.toString(16);
 	};	
 
 	// calculates the red value of the pixel located at (x, y)
-	var calcR = function (x, y) {
-		return eval("(function() { return " + redFunc + ";}())");
+	var calcR = function (x, y, t) {
+		try{
+			return eval("(function() { return " + redFunc + ";}())");
+		}catch(e){
+			alert("Sorry, the code for red must be valid javascript. It gave the error" + e.toString);
+		}
 	};
 
 	// calculates the green value of the pixel located at (x, y)
-	var calcG = function (x, y) {
-		return eval("(function() { return " + greenFunc + "}())");
+	var calcG = function (x, y, t) {
+		try{
+			return eval("(function() { return " + greenFunc + ";}())");
+		}catch(e){
+			alert("Sorry, the code for green must be valid javascript. It gave the error" + e.toString);
+		}
 	};
-
 	// calculates the blue value of the pixel located at (x, y)
-	var calcB = function (x, y) {
-		return eval("(function() { return " + blueFunc + ";}())");
+	var calcB = function (x, y, t) {
+		try{
+			return eval("(function() { return " + blueFunc + ";}())");
+		}catch(e){
+			alert("Sorry, the code for blue must be valid javascript. It gave the error" + e.toString);
+		}
 	};
 
 	// calculates the color of the pixel located at (x, y)
-	var calcColor = function (x, y) {
-		var r = Math.floor(Math.abs(calcR(x, y))) % 256;
-		var g = Math.floor(Math.abs(calcG(x, y))) % 256;
-		var b = Math.floor(Math.abs(calcB(x, y))) % 256;
+	var calcColor = function (x, y, t) {
+		var r = Math.floor(Math.abs(calcR(x, y, t))) % 256;
+		var g = Math.floor(Math.abs(calcG(x, y, t))) % 256;
+		var b = Math.floor(Math.abs(calcB(x, y, t))) % 256;
 
-		if (r == undefined | g == undefined | b == undefined) {
-			return RGB(100, 100, 100);
-		}
-		else {
-			return RGB(r, g, b);
-		}
+		// var||100 gives 100 if var is undefined, var otherwise
+		return RGB((r||100), (g||100), (b||100));
 	}
 
 	// gets the pixel position given its index
@@ -113,8 +130,12 @@ jQuery(function($) {
 		};
 	}
 
+	var drawTimeouts = [];
 	// draws all the pixels
-	var draw = function () {
+	var draw = function (t) {
+		if(!t){t = 0;}
+		updateTime();
+		//console.log("drawing",t)
 		redFunc = $('#redFunc').val();
 		greenFunc = $('#greenFunc').val();
 		blueFunc = $('#blueFunc').val();
@@ -124,10 +145,10 @@ jQuery(function($) {
 
 				var position = getPixelPosition(i, j);
 				if (useActualCoordinates) {	
-					ctx.fillStyle = calcColor(position.x, position.y);
+					ctx.fillStyle = calcColor(position.x, position.y, t);
 				}
 				else {
-					ctx.fillStyle = calcColor(i, j);
+					ctx.fillStyle = calcColor(i, j, t);
 				}
 
 				ctx.fillRect(
@@ -137,7 +158,15 @@ jQuery(function($) {
 					   	pointDimensions.Y);
 			}
 		}
+		if(timeEnabled && !areOptionsEnabled){
+			console.log('setting timeout',t);
+			for (var i = drawTimeouts.length - 1; i >= 0; i--) {
+				clearTimeout(drawTimeouts[i]);
+			};
+			drawTimeouts.push(setTimeout("jQuery(function($){draw("+(t+1).toString()+");});",100));
+		}
 	};
+	window.draw = draw; //IM SORRY IT'S THE ONLY WAY I COULD GET IT TO WORK :(
 
 	// draws all the pixels one by one, without hanging up the app
 	var drawAnimation = function() {

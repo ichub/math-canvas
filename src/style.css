@@ -70,6 +70,14 @@ body, html {
 	background-color: #A3C0FF;
 }
 
+.timeInput {
+	background-color: #111;
+	color: #eee;
+	float: right;
+	width: 100%;
+	position: relative;
+}
+
 textarea {
 	overflow: hidden;
 	position: relative;

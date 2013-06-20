@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script src="jquery.js"></script>
 		<script src='main.js'></script>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
 		<div id='options'>
-			<div class='funcInput'> <textarea id='redFunc'> x * x - y * y </textarea> </div>
-			<div class='funcInput'> <textarea id='greenFunc'> x * x - y * y </textarea> </div>
-			<div class='funcInput'> <textarea id='blueFunc'> x * x - y * y </textarea> </div>
+			<div class='funcInput'> <textarea id='redFunc'>x*y</textarea> </div>
+			<div class='funcInput'> <textarea id='greenFunc'>x*t*y</textarea> </div>
+			<div class='funcInput'> <textarea id='blueFunc'>x*y</textarea> </div>
+			<div class='timeInput'> 
+				<input type='checkbox' id='timeInput' checked/> 
+				<div style='display:inline'> Enable time ('t' variable) </div> 
+			</div>
 		</div>
 		<div id='blinds'></div>
 		<div id='working'>Drawing...</div>

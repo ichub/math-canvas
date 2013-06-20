@@ -7,10 +7,6 @@ jQuery(function($) {
 	// whether or not the options are currently being shown
 	var areOptionsEnabled = false;
 
-	// the amount of miliseconds it takes for the div to change
-	// its state when activated
-	var divSpeed = 200;
-
 	// the amount of space between each drawn pixel.
 	// does not affect the color calculations
 	var spacing = 0;
@@ -78,7 +74,11 @@ jQuery(function($) {
 		if (R == undefined || G == undefined || B == undefined)
 			return '#FFFFFF';
 
-		return "#" + R.toString(16) + G.toString(16) + B.toString(16);
+		rStr = (R < 0x10 ? "0" : "") + R.toString(16);
+		gStr = (G < 0x10 ? "0" : "") + G.toString(16);
+		bStr = (B < 0x10 ? "0" : "") + B.toString(16);
+
+		return "#" + rStr + gStr + bStr;
 	};	
 
 	// gets the pixel position given its index
@@ -100,7 +100,6 @@ jQuery(function($) {
 
 		var t = proccessTime(amountOfTimesDrawn++);
 
-		//*
 		for (var i = 0; i < displayDimensions.x; i++) {
 			for (var j = 0; j < displayDimensions.y; j++) {
 				var position = getPixelPosition(i, j);
@@ -114,7 +113,6 @@ jQuery(function($) {
 				colors[i + j * displayDimensions.y] = RGB(r, g, b);
 			}
 		}
-		//*/
 
 		//eval("for (var i = 0; i < displayDimensions.x; i++) { for (var j = 0; j < displayDimensions.y; j++) { var position = getPixelPosition(i, j); var x = position.x; var y = position.y; var r = Math.floor(Math.abs((function() { return Math.sin(x * y + t / 10) * 10;}()))) % 256; var g = Math.floor(Math.abs((function() { return Math.sin(x * y + t / 10) * 10;}()))) % 256; var b = Math.floor(Math.abs((function() { return Math.sin(x * y + t / 10) * 10;}()))) % 256; colors[i + j * displayDimensions.y] = RGB(r, g, b); } }");
 	};

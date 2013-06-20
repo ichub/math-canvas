@@ -100,6 +100,7 @@ jQuery(function($) {
 
 		var t = proccessTime(amountOfTimesDrawn++);
 
+		//*
 		for (var i = 0; i < displayDimensions.x; i++) {
 			for (var j = 0; j < displayDimensions.y; j++) {
 				var position = getPixelPosition(i, j);
@@ -113,6 +114,9 @@ jQuery(function($) {
 				colors[i + j * displayDimensions.y] = RGB(r, g, b);
 			}
 		}
+		//*/
+
+		//eval("for (var i = 0; i < displayDimensions.x; i++) { for (var j = 0; j < displayDimensions.y; j++) { var position = getPixelPosition(i, j); var x = position.x; var y = position.y; var r = Math.floor(Math.abs((function() { return Math.sin(x * y + t / 10) * 10;}()))) % 256; var g = Math.floor(Math.abs((function() { return Math.sin(x * y + t / 10) * 10;}()))) % 256; var b = Math.floor(Math.abs((function() { return Math.sin(x * y + t / 10) * 10;}()))) % 256; colors[i + j * displayDimensions.y] = RGB(r, g, b); } }");
 	};
 
 	// draws all the pixels

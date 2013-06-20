@@ -81,35 +81,6 @@ jQuery(function($) {
 		return "#" + R.toString(16) + G.toString(16) + B.toString(16);
 	};	
 
-	// calculates the red value of the pixel located at (x, y)
-	var calcR = function (x, y, i, j, t) {
-		return eval("(function() { return " + redFunc + ";}())");
-	};
-
-	// calculates the green value of the pixel located at (x, y)
-	var calcG = function (x, y, i, j, t) {
-		return eval("(function() { return " + greenFunc + "}())");
-	};
-
-	// calculates the blue value of the pixel located at (x, y)
-	var calcB = function (x, y, i, j, t) {
-		return eval("(function() { return " + blueFunc + ";}())");
-	};
-
-	// calculates the color of the pixel located at (x, y)
-	var calcColor = function (x, y, i, j, t) {
-		var r = Math.floor(Math.abs(calcR(x, y, i, j, t))) % 256;
-		var g = Math.floor(Math.abs(calcG(x, y, i, j, t))) % 256;
-		var b = Math.floor(Math.abs(calcB(x, y, i, j, t))) % 256;
-
-		if (r == undefined | g == undefined | b == undefined) {
-			return RGB(100, 100, 100);
-		}
-		else {
-			return RGB(r, g, b);
-		}
-	}
-
 	// gets the pixel position given its index
 	var getPixelPosition = function(i, j) {
 		return {
@@ -162,66 +133,6 @@ jQuery(function($) {
 			}
 		}
 	};
-
-	// draws all the pixels one by one, without hanging up the app
-	var drawAnimation = function() {
-		calculateColors();
-
-		// the index of the current pixel to be drawn
-		var cursor = {
-			x: -1,
-			y: 0,
-		}
-
-		// sets the cursor to the index of the next pixel. if there are no
-		// more pixels to be drawn, returns false. otherwise returns true
-		var nextPixel = function() {
-			cursor.x++;
-			if (cursor.x >= displayDimensions.x) {
-				console.log(0);
-				cursor.x = 0;
-				cursor.y++;
-				
-				if (cursor.y > displayDimensions.x + 1) {
-					return false;
-				}
-			}
-			return true;
-		}
-
-		// draws the next *amount* pixels to the screen. returns true if it drew 
-		// all of the pixels, and false otherwise.
-		var drawNext = function(amount) {
-			var toReturn = false;
-
-			for (var i = 0; i < amount; i++) {
-				if (nextPixel()) {
-
-					var position = getPixelPosition(cursor.x, cursor.y);
-					ctx.fillStyle = colors[i + j * displayDimensions.y];
-					ctx.fillRect(
-								position.x,
-								position.y, 
-								pointDimensions.x,
-							   	pointDimensions.y);
-
-					toReturn = true;
-					continue;
-				}
-				toReturn = false;
-			}
-			return toReturn;
-		}
-
-		// function that loops through every pixel, and draws it.
-		var drawLoop = function() {
-			if (drawNext(12)) {
-				setTimeout(drawLoop, 1);
-			}
-		}
-
-		drawLoop();
-	}
 
 	$(window).keydown(function(e) {
 		// if the escape key is pressed

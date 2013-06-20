@@ -39,13 +39,13 @@ jQuery(function($) {
 		Y: 50,
 	}
 
-	// shows the options div
+	// hides the options div
 	var hideDiv = function() {
 		$('#options')[0].style.display = 'none';
 		$('#blinds')[0].style.display = 'none';
 	};
 
-	// hides the options div
+	// shows the options div
 	var showDiv = function() {
 		$('#options')[0].style.display = 'inline';
 		$('#blinds')[0].style.display = 'inline';

@@ -29,8 +29,8 @@ jQuery(function($) {
 
 	// size of each point in pixels
 	var pointDimensions = {
-		X: 7,
-		Y: 7,
+		X: 1,
+		Y: 1,
 	};
 
 	// dimensions are in amount of pixels

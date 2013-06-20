@@ -39,6 +39,9 @@ jQuery(function($) {
 		y: 50,
 	}
 
+	// precomputed color values
+	var colors = [];
+
 	// shows the options div
 	var hideDiv = function() {
 		$('#options').css({'display':'none'});
@@ -113,23 +116,36 @@ jQuery(function($) {
 	}
 
 	var proccessTime = function(date) {
-		return Math.floor((date.getTime() / 10));
+		return Math.floor((date.getTime() % 100000));
 	};
 
-	// draws all the pixels
-	var draw = function () {
+	var calculateColors = function() {
 		redFunc = $('#redFunc').val();
 		greenFunc = $('#greenFunc').val();
 		blueFunc = $('#blueFunc').val();
 
 		lastDrawTime = new Date();
-		var time = proccessTime(lastDrawTime);
+		var t = proccessTime(lastDrawTime);
 
 		for (var i = 0; i < displayDimensions.x; i++) {
-			for (var j = 0; j < displayDimensions.x; j++) {
+			for (var j = 0; j < displayDimensions.y; j++) {
+				var position = getPixelPosition(i, j);
+				var x = position.x;
+				var y = position.y;
+				colors[i + j * displayDimensions.y] = calcColor(x, y, i, j, t);
+			}
+		}
+	};
+
+	// draws all the pixels
+	var draw = function () {
+		calculateColors();
+
+		for (var i = 0; i < displayDimensions.x; i++) {
+			for (var j = 0; j < displayDimensions.y; j++) {
 
 				var position = getPixelPosition(i, j);
-				ctx.fillStyle = calcColor(position.x, position.y, i, j, time);
+				ctx.fillStyle = colors[i + j * displayDimensions.y];
 
 				ctx.fillRect(
 						position.x,
@@ -142,12 +158,7 @@ jQuery(function($) {
 
 	// draws all the pixels one by one, without hanging up the app
 	var drawAnimation = function() {
-		redFunc = $('#redFunc').val();
-		greenFunc = $('#greenFunc').val();
-		blueFunc = $('#blueFunc').val();
-
-		lastDrawTime = new Date();
-		var time = proccessTime(lastDrawTime);
+		calculateColors();
 
 		// the index of the current pixel to be drawn
 		var cursor = {
@@ -180,7 +191,7 @@ jQuery(function($) {
 				if (nextPixel()) {
 
 					var position = getPixelPosition(cursor.x, cursor.y);
-					ctx.fillStyle = calcColor(position.x, position.y, cursor.x, cursor.y, time);
+					ctx.fillStyle = colors[i + j * displayDimensions.y];
 					ctx.fillRect(
 								position.x,
 								position.y, 

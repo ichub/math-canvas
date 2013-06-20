@@ -116,7 +116,7 @@ jQuery(function($) {
 	}
 
 	var proccessTime = function(times) {
-		return times
+		return times % 256;
 	};
 
 	var calculateColors = function() {

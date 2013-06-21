@@ -40,23 +40,13 @@ jQuery(function($) {
 
 	// shows the options div
 	var hideDiv = function() {
-		$('#options').css({'display':'none'});
+		$('#container').css({'display':'none'});
 		$('#blinds').css({'display':'none'});
 	};
 
 	// hides the options div
 	var showDiv = function() {
-		$('#options').css({'display':'inline'});
-		$('#blinds').css({'display':'inline'});
-	};
-
-	var hideWorking = function() {
-		$('#working').css({'display':'none'});
-		$('#blinds').css({'display':'none'});
-	};
-
-	var showWorking = function() {
-		$('#working').css({'display':'inline'});
+		$('#container').css({'display':'inline'});
 		$('#blinds').css({'display':'inline'});
 	};
 

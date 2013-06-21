@@ -33,7 +33,7 @@ jQuery(function($) {
 	var displayDimensions = {
 		x: 0,
 		y: 0,
-	}
+	};
 
 	// precomputed color values
 	var colors = [];
@@ -53,12 +53,12 @@ jQuery(function($) {
 	var hideWorking = function() {
 		$('#working').css({'display':'none'});
 		$('#blinds').css({'display':'none'});
-	}
+	};
 
 	var showWorking = function() {
 		$('#working').css({'display':'inline'});
 		$('#blinds').css({'display':'inline'});
-	}
+	};
 
 	// resizes the canvas so it fits the whole screen
 	var onResize = function() {
@@ -87,7 +87,7 @@ jQuery(function($) {
 			x: i * (pointDimensions.x + spacing),
 			y: j * (pointDimensions.y + spacing),
 		};
-	}
+	};
 
 	var proccessTime = function(times) {
 		return times % 256;

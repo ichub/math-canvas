@@ -7,6 +7,13 @@ jQuery(function($) {
 	// whether or not the options are currently being shown
 	var areOptionsEnabled = false;
 
+	// whether or not the state of the options is changing
+	var isSlidingOptions = false;
+
+	// the amount of miliseconds it takes to completely slide the options
+	// up and down
+	var slideSpeed = 100;
+
 	// the amount of space between each drawn pixel.
 	// does not affect the color calculations
 	var spacing = 0;
@@ -40,14 +47,19 @@ jQuery(function($) {
 
 	// shows the options div
 	var hideDiv = function() {
-		$('#container').slideUp(100, function() {
+		isSlidingOptions = true;
+		$('#container').slideUp(slideSpeed, function() {
 			drawIntevalId = setInterval(draw, 1);
+			isSlidingOptions = false;
 		});
 	};
 
 	// hides the options div
 	var showDiv = function() {
-		$('#container').slideDown(100)
+		isSlidingOptions = true;
+		$('#container').slideDown(slideSpeed, function() {
+			isSlidingOptions = false;
+		});
 	};
 
 	// resizes the canvas so it fits the whole screen
@@ -125,23 +137,22 @@ jQuery(function($) {
 	};
 
 	$(window).keydown(function(e) {
-		// if the escape key is pressed
+		// if the escape key is pressed and the state of the
+		// options menu is currently not changing
 		if (e.which == 27) {
-			areOptionsEnabled = !areOptionsEnabled;
+			if (!isSlidingOptions) {
+				areOptionsEnabled = !areOptionsEnabled;
 
-			console.log(areOptionsEnabled);
-			clearInterval(drawIntevalId);
+				console.log(areOptionsEnabled);
+				clearInterval(drawIntevalId);
 
-			if (areOptionsEnabled) {
-				showDiv();
-			}
-			else {
-				hideDiv();
+				areOptionsEnabled ? showDiv() : hideDiv();
 			}
 		}
 	});
 	
 	$(window).resize(onResize);
+	$('#container').slideUp(1);
 	onResize();
 	drawIntevalId = setInterval(draw, 1);
 });

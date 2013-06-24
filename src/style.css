@@ -10,7 +10,18 @@ body, html {
 
 #container {
 	z-index: 100;
+	width: 100%;
 }
+
+#options {
+	padding: 0px;
+	border: none;
+	border-collapse: collapse;
+	margin: 0px;
+	width: 100%;
+	height: 150px;
+}
+
 #blinds {
 	width: 100%;
 	height: 100%;
@@ -25,34 +36,32 @@ body, html {
 }
 
 .funcInput {
-	border: none;
-	position: relative;
-	height: 33%;
+	display: inline;
 	float: left;
-	top: 0px;
+	height: 100%;
 	width: 100%;
+	border: none;
+	padding: 3px;
 }
 
 #redFunc {
-	border: none;
 	background-color: #FFD6E4;
 }
 
 #greenFunc {
-	border: none;
 	background-color: #A3FFAB;
 }
 
 #blueFunc {
-	border: none;
 	background-color: #A3C0FF;
 }
 
 textarea {
 	overflow: hidden;
-	position: relative;
-	width: 100%;
-	height: 100%;
 	resize: none;
 	outline: none;
+}
+
+td {
+	padding: 0;
 }

@@ -10,12 +10,22 @@
 		<div id='container'>
 			<div id='blinds'></div>
 			<div id='instructions'>
-				asdf
 			</div>
-			<div id='options'>
-				<div class='funcInput'> <textarea id='redFunc'>Math.sin(x * y + t / 10) * 200</textarea> </div>
-				<div class='funcInput'> <textarea id='greenFunc'>Math.sin(x * y + t / 10) * 200</textarea> </div>
-				<div class='funcInput'> <textarea id='blueFunc'>Math.sin(x * y + t / 10) * 200</textarea> </div>
+			<div>
+				<table id='options'>
+					<tr>
+						<td>
+							<textarea id='redFunc'class='funcInput'>Math.sin(x * y + t / 10) * 200</textarea>
+						</td>
+						<td>
+							<textarea id='greenFunc' class='funcInput'>Math.sin(x * y + t / 10) * 200</textarea>
+						</td>
+						<td>
+							<textarea id='blueFunc' class='funcInput'>Math.sin(x * y + t / 10) * 200</textarea>
+						</td>
+
+					</tr>
+				</table>
 			</div>
 		</div>
 		<canvas id='myCanvas'></canvas>

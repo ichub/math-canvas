@@ -40,13 +40,13 @@ jQuery(function($) {
 
 	// shows the options div
 	var hideDiv = function() {
-		$('#container').css({'display':'none'});
+		$('#options').css({'display':'none'});
 		$('#blinds').css({'display':'none'});
 	};
 
 	// hides the options div
 	var showDiv = function() {
-		$('#container').css({'display':'inline'});
+		$('#options').css({'display':'inline'});
 		$('#blinds').css({'display':'inline'});
 	};
 
@@ -80,7 +80,7 @@ jQuery(function($) {
 	};
 
 	var proccessTime = function(times) {
-		return times % 256;
+		return times;
 	};
 
 	var calculateColors = function() {

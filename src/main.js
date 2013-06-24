@@ -40,14 +40,14 @@ jQuery(function($) {
 
 	// shows the options div
 	var hideDiv = function() {
-		$('#options').css({'display':'none'});
-		$('#blinds').css({'display':'none'});
+		$('#container').slideUp(100, function() {
+			drawIntevalId = setInterval(draw, 1);
+		});
 	};
 
 	// hides the options div
 	var showDiv = function() {
-		$('#options').css({'display':'inline'});
-		$('#blinds').css({'display':'inline'});
+		$('#container').slideDown(100)
 	};
 
 	// resizes the canvas so it fits the whole screen
@@ -127,21 +127,21 @@ jQuery(function($) {
 	$(window).keydown(function(e) {
 		// if the escape key is pressed
 		if (e.which == 27) {
+			areOptionsEnabled = !areOptionsEnabled;
+
+			console.log(areOptionsEnabled);
 			clearInterval(drawIntevalId);
-			if (!areOptionsEnabled) {
+
+			if (areOptionsEnabled) {
 				showDiv();
 			}
 			else {
 				hideDiv();
-				drawIntevalId = setInterval(draw, 1);
 			}
-
-			areOptionsEnabled = !areOptionsEnabled;
 		}
 	});
 	
 	$(window).resize(onResize);
 	onResize();
-
 	drawIntevalId = setInterval(draw, 1);
 });

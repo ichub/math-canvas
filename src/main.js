@@ -49,7 +49,10 @@ jQuery(function($) {
 	var hideDiv = function() {
 		isSlidingOptions = true;
 		$('#container').slideUp(slideSpeed, function() {
-			drawIntevalId = setInterval(draw, 1);
+			setTimeout(function() {
+				drawIntevalId = setInterval(draw, 1);
+			}, 100);
+
 			isSlidingOptions = false;
 		});
 	};

@@ -44,6 +44,13 @@ body, html {
 	display: none;
 }
 
+#like {
+	position: absolute;
+	z-index: 200;
+	bottom: 0px;
+	right:  3px;
+}
+
 .funcInput {
 	display: inline;
 	float: left;

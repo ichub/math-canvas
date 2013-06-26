@@ -48,6 +48,7 @@ jQuery(function($) {
 	// shows the options div
 	var hideDiv = function() {
 		isSlidingOptions = true;
+		$('#like').css({'display':'inline'})
 		$('#container').slideUp(slideSpeed, function() {
 			setTimeout(function() {
 				drawIntevalId = setInterval(draw, 1);
@@ -59,6 +60,7 @@ jQuery(function($) {
 
 	// hides the options div
 	var showDiv = function() {
+		$('#like').css({'display':'none'})
 		isSlidingOptions = true;
 		$('#container').slideDown(slideSpeed, function() {
 			isSlidingOptions = false;

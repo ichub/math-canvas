@@ -12,7 +12,7 @@ jQuery(function($) {
 
 	// the amount of miliseconds it takes to completely slide the options
 	// up and down
-	var slideSpeed = 100;
+	var slideSpeed = 200;
 
 	// the amount of space between each drawn pixel.
 	// does not affect the color calculations
@@ -155,7 +155,6 @@ jQuery(function($) {
 	});
 	
 	$(window).resize(onResize);
-	$('#container').slideUp(1);
 	onResize();
 	drawIntevalId = setInterval(draw, 1);
 });

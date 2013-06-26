@@ -11,6 +11,15 @@ body, html {
 #container {
 	z-index: 100;
 	width: 100%;
+	display: none;
+}
+
+#instructions {
+	background-color: #707070;
+	color: #000000;
+	padding: 5px;
+	font-family: Courier;
+	font-size: 14px;
 }
 
 #options {

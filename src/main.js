@@ -1,73 +1,31 @@
-jQuery(function($) {
+window.onload = function() {
+	"use strict";
 
-	// gets the canvas and its context
-	var canvas = $('#myCanvas')[0];
+	var canvas = document.getElementById('myCanvas');
 	var ctx = canvas.getContext('2d');
 
-	// whether or not the options are currently being shown
-	var areOptionsEnabled = false;
-
-	// whether or not the state of the options is changing
-	var isSlidingOptions = false;
-
-	// the amount of miliseconds it takes to completely slide the options
-	// up and down
-	var slideSpeed = 200;
-
-	// the amount of space between each drawn pixel.
-	// does not affect the color calculations
-	var spacing = 0;
-
-	// functions that are inputed by the user, and are used
-	// to calculate the color of each pixel
 	var redFunction = "100;";
 	var greenFunction = "100;";
 	var blueFunction = "100;";
 
-	// the amount of times the screen has been refreshed
+	var spacing = 0;
+
 	var amountOfTimesDrawn = 0
 
-	// the id of the interval which draws on the screen
 	var drawIntevalId = null;
 
-	// size of each point in pixels
 	var pointDimensions = {
 		x: 20,
 		y: 20,
 	};
 
-	// dimensions are in amount of pixels
 	var displayDimensions = {
-		x: 0,
-		y: 0,
+		x: window.innerWidth,
+		y: window.innerHeight,
 	};
 
-	// precomputed color values
 	var colors = [];
 
-	// shows the options div
-	var hideDiv = function() {
-		isSlidingOptions = true;
-		$('#like').css({'display':'inline'})
-		$('#container').slideUp(slideSpeed, function() {
-			setTimeout(function() {
-				drawIntevalId = setInterval(draw, 1);
-			}, 100);
-
-			isSlidingOptions = false;
-		});
-	};
-
-	// hides the options div
-	var showDiv = function() {
-		$('#like').css({'display':'none'})
-		isSlidingOptions = true;
-		$('#container').slideDown(slideSpeed, function() {
-			isSlidingOptions = false;
-		});
-	};
-
-	// resizes the canvas so it fits the whole screen
 	var onResize = function() {
 		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight;
@@ -75,24 +33,23 @@ jQuery(function($) {
 		displayDimensions.y = window.innerHeight / (pointDimensions.y);
 	};
 
-	// converts an rgb value to a string that can be used
-	// to style each point
+	// converts an rgb value to a string '#RRGGBB'
 	var RGB = function (R, G, B) {
-		if (R == undefined || G == undefined || B == undefined)
+		if (R == undefined || G == undefined || B == undefined) {
 			return '#FFFFFF';
+		}
 
-		rStr = (R < 0x10 ? "0" : "") + R.toString(16);
-		gStr = (G < 0x10 ? "0" : "") + G.toString(16);
-		bStr = (B < 0x10 ? "0" : "") + B.toString(16);
+		var rStr = (R < 0x10 ? "0" : "") + R.toString(16);
+		var gStr = (G < 0x10 ? "0" : "") + G.toString(16);
+		var bStr = (B < 0x10 ? "0" : "") + B.toString(16);
 
 		return "#" + rStr + gStr + bStr;
 	};	
 
-	// gets the pixel position given its index
 	var getPixelPosition = function(i, j) {
 		return {
-			x: i * (pointDimensions.x + spacing),
-			y: j * (pointDimensions.y + spacing),
+			x: i * (pointDimensions.x + spacing) + spacing,
+			y: j * (pointDimensions.y + spacing) + spacing
 		};
 	};
 
@@ -101,9 +58,9 @@ jQuery(function($) {
 	};
 
 	var calculateColors = function() {
-		redFunc = $('#redFunc').val();
-		greenFunc = $('#greenFunc').val();
-		blueFunc = $('#blueFunc').val();
+		var redFunc = document.getElementById('redFunc').value;
+		var greenFunc = document.getElementById('greenFunc').value;
+		var blueFunc = document.getElementById('blueFunc').value;
 
 		var t = proccessTime(amountOfTimesDrawn++);
 
@@ -122,7 +79,6 @@ jQuery(function($) {
 		}
 	};
 
-	// draws all the pixels
 	var draw = function () {
 		calculateColors();
 
@@ -141,22 +97,9 @@ jQuery(function($) {
 		}
 	};
 
-	$(window).keydown(function(e) {
-		// if the escape key is pressed and the state of the
-		// options menu is currently not changing
-		if (e.which == 27) {
-			if (!isSlidingOptions) {
-				areOptionsEnabled = !areOptionsEnabled;
+	window.onresize = onResize;
 
-				console.log(areOptionsEnabled);
-				clearInterval(drawIntevalId);
-
-				areOptionsEnabled ? showDiv() : hideDiv();
-			}
-		}
-	});
-	
-	$(window).resize(onResize);
 	onResize();
+
 	drawIntevalId = setInterval(draw, 1);
-});
+};

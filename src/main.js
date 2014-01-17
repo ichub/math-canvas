@@ -4,15 +4,23 @@ window.onload = function() {
 	var canvas = document.getElementById('myCanvas');
 	var ctx = canvas.getContext('2d');
 
-	var redFunction = "100;";
-	var greenFunction = "100;";
-	var blueFunction = "100;";
+	var redFunctionText = "100;";
+	var greenFunctionText = "100;";
+	var blueFunctionText = "100;";
+
+	var redFunction = new Function();
+	var greenFunction = new Function();
+	var blueFunction = new Function();
+
+	var redFunction = function(x, y, i ,j, t) {
+
+	};
 
 	var spacing = 0;
 
 	var amountOfTimesDrawn = 0
 
-	var drawIntevalId = null;
+	var drawIntevalId = 0;
 
 	var pointDimensions = {
 		x: 20,
@@ -66,9 +74,9 @@ window.onload = function() {
 				var x = position.x;
 				var y = position.y;
 
-				var r = Math.floor(Math.abs(eval("(function() { return " + redFunction + ";}())"))) % 256;
-				var g = Math.floor(Math.abs(eval("(function() { return " + greenFunction + ";}())"))) % 256;
-				var b = Math.floor(Math.abs(eval("(function() { return " + blueFunction + ";}())"))) % 256;
+				var r = Math.floor(Math.abs(redFunction(x, y, i, j, t))) % 256;
+				var g = Math.floor(Math.abs(greenFunction(x, y, i, j, t))) % 256;
+				var b = Math.floor(Math.abs(blueFunction(x, y, i, j, t))) % 256;
 
 				colors[i + j * displayDimensions.y] = RGB(r, g, b);
 			}
@@ -94,10 +102,19 @@ window.onload = function() {
 	};
 
 	var updateFunctions = function() {
-		redFunction = document.getElementById('redFunc').value;
-		greenFunction = document.getElementById('greenFunc').value;
-		blueFunction = document.getElementById('blueFunc').value;
+		redFunctionText = document.getElementById('redFunc').value;
+		greenFunctionText = document.getElementById('greenFunc').value;
+		blueFunctionText = document.getElementById('blueFunc').value;
+
+		redFunction = createFunction(redFunctionText);
+		greenFunction = createFunction(greenFunctionText)
+		blueFunction = createFunction(blueFunctionText)
+
 	};
+
+	var createFunction = function(functionText) {
+		return new Function("x", "y", "i", "j", "t", "return " + functionText + ";")
+	}
 
 	window.onresize = onResize;
 

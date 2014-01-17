@@ -58,10 +58,6 @@ window.onload = function() {
 	};
 
 	var calculateColors = function() {
-		var redFunc = document.getElementById('redFunc').value;
-		var greenFunc = document.getElementById('greenFunc').value;
-		var blueFunc = document.getElementById('blueFunc').value;
-
 		var t = proccessTime(amountOfTimesDrawn++);
 
 		for (var i = 0; i < displayDimensions.x; i++) {
@@ -70,9 +66,9 @@ window.onload = function() {
 				var x = position.x;
 				var y = position.y;
 
-				var r = Math.floor(Math.abs(eval("(function() { return " + redFunc + ";}())"))) % 256;
-				var g = Math.floor(Math.abs(eval("(function() { return " + greenFunc + ";}())"))) % 256;
-				var b = Math.floor(Math.abs(eval("(function() { return " + blueFunc + ";}())"))) % 256;
+				var r = Math.floor(Math.abs(eval("(function() { return " + redFunction + ";}())"))) % 256;
+				var g = Math.floor(Math.abs(eval("(function() { return " + greenFunction + ";}())"))) % 256;
+				var b = Math.floor(Math.abs(eval("(function() { return " + blueFunction + ";}())"))) % 256;
 
 				colors[i + j * displayDimensions.y] = RGB(r, g, b);
 			}
@@ -97,9 +93,16 @@ window.onload = function() {
 		}
 	};
 
+	var updateFunctions = function() {
+		redFunction = document.getElementById('redFunc').value;
+		greenFunction = document.getElementById('greenFunc').value;
+		blueFunction = document.getElementById('blueFunc').value;
+	};
+
 	window.onresize = onResize;
 
 	onResize();
 
+	updateFunctions();
 	drawIntevalId = setInterval(draw, 1);
 };

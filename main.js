@@ -114,7 +114,7 @@ window.onload = function() {
 
 	var createFunction = function(functionText) {
 		return new Function("x", "y", "i", "j", "t", "return " + functionText + ";")
-	}
+	};
 
 	window.onresize = onResize;
 

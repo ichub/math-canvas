@@ -49,6 +49,8 @@ window.onload = function() {
 		displayDimensions.y = window.innerHeight / (pointDimensions.y);
 	};
 
+	var defString = "sin = Math.sin;var cos = Math.cos;var tan = Math.tan;var abs = Math.abs;var pow = Math.pow;var pi = Math.PI;var e = Math.E;"	
+
 	// converts an rgb value to a string '#RRGGBB'
 	var RGB = function (R, G, B) {
 		if (R == undefined || G == undefined || B == undefined) {
@@ -82,18 +84,26 @@ window.onload = function() {
 				var x = position.x;
 				var y = position.y;
 
+				var r = 100;
+				var g = 100;
+				var b = 100;
+
 				try {
-					var r = Math.floor(Math.abs(redFunction(x, y, i, j, t))) % 256;
+					r = Math.floor(Math.abs(redFunction(x, y, i, j, t))) % 256;
 				}
-				catch(e) { }
+				catch(e) {
+				}
 				try {
-					var g = Math.floor(Math.abs(greenFunction(x, y, i, j, t))) % 256;
+					g = Math.floor(Math.abs(greenFunction(x, y, i, j, t))) % 256;
 				}
-				catch(e) { }
+				catch(e) {
+				}
 				try {
-					var b = Math.floor(Math.abs(blueFunction(x, y, i, j, t))) % 256;
+					b = Math.floor(Math.abs(blueFunction(x, y, i, j, t))) % 256;
 				}
-				catch(e) { }
+				catch(e) {
+				}
+
 				colors[i + j * displayDimensions.y] = RGB(r, g, b);
 			}
 		}
@@ -127,7 +137,7 @@ window.onload = function() {
 	};
 
 	var createFunction = function(functionText) {
-		return new Function("x", "y", "i", "j", "t", "return " + functionText + ";")
+		return new Function("x", "y", "i", "j", "t", defString + "return " + functionText + ";")
 	};
 
 	document.onkeydown = function(e) {

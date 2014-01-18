@@ -12,10 +12,6 @@ window.onload = function() {
 	var greenFunction = new Function();
 	var blueFunction = new Function();
 
-	var redFunction = function(x, y, i ,j, t) {
-
-	};
-
 	var spacing = 0;
 
 	var amountOfTimesDrawn = 0

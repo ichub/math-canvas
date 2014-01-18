@@ -1,6 +1,14 @@
 window.onload = function() {
 	"use strict";
 	
+	(function() {
+	    var link = document.createElement('link');
+	    link.type = 'image/x-icon';
+	    link.rel = 'shortcut icon';
+	    link.href = 'favicon.ico';
+	    document.getElementsByTagName('head')[0].appendChild(link);
+	}());
+
 	var canvas = document.getElementById('myCanvas');
 
 	var ctx = canvas.getContext('2d');
@@ -8,7 +16,7 @@ window.onload = function() {
 	var redFunctionInput = document.getElementById("redFunc");
 	var greenFunctionInput = document.getElementById("greenFunc");
 	var blueFunctionInput = document.getElementById("blueFunc");
-	var input = document.getElementById("input");
+	var input = document.getElementById("popout");
 
 	var redFunctionText;
 	var greenFunctionText;

@@ -6,24 +6,11 @@
 		<title>Math Canvas</title>
 	</head>
 	<body>
-		<div id='container'>
-			<div id='instructions'>
-				Input three functions, and the color of each square is determined by the functions. Each function has 3 variables available: x and y, which are the coordinates of the square, and t, which is the time that has passed since the simulation started. The program loops through each square, and determines its color using the functions.
-			</div>
-			<div>
-				<table id='options'>
-					<tr>
-						<td>
-							<textarea id='redFunc'class='funcInput'>Math.sin(x * y + t / 10) * 200</textarea>
-						</td>
-						<td>
-							<textarea id='greenFunc' class='funcInput'>Math.sin(x * y + t / 10) * 200</textarea>
-						</td>
-						<td>
-							<textarea id='blueFunc' class='funcInput'>Math.sin(x * y + t / 10) * 200</textarea>
-						</td>
-					</tr>
-				</table>
+		<div id="popout">
+			<div id="input">
+				<textarea id='redFunc'class='funcInput'>Math.sin(x * y + t / 10) * 200</textarea>
+				<textarea id='greenFunc' class='funcInput'>Math.sin(x * y + t / 10) * 200</textarea>
+				<textarea id='blueFunc' class='funcInput'>Math.sin(x * y + t / 10) * 200</textarea>
 			</div>
 		</div>
 		<canvas id='myCanvas'></canvas>

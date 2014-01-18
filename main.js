@@ -4,13 +4,18 @@ window.onload = function() {
 	var canvas = document.getElementById('myCanvas');
 	var ctx = canvas.getContext('2d');
 
-	var redFunctionText = "100;";
-	var greenFunctionText = "100;";
-	var blueFunctionText = "100;";
+	var redFunctionInput = document.getElementById("redFunc");
+	var greenFunctionInput = document.getElementById("greenFunc");
+	var blueFunctionInput = document.getElementById("blueFunc");
+	var input = document.getElementById("input");
 
-	var redFunction = new Function();
-	var greenFunction = new Function();
-	var blueFunction = new Function();
+	var redFunctionText;
+	var greenFunctionText;
+	var blueFunctionText;
+
+	var redFunction;
+	var greenFunction;
+	var blueFunction;
 
 	var spacing = 0;
 
@@ -27,6 +32,12 @@ window.onload = function() {
 		x: window.innerWidth,
 		y: window.innerHeight,
 	};
+
+	var colorType = {
+		red: 1,
+		green: 2,
+		blue: 3,
+	}
 
 	var colors = [];
 
@@ -70,18 +81,24 @@ window.onload = function() {
 				var x = position.x;
 				var y = position.y;
 
-				var r = Math.floor(Math.abs(redFunction(x, y, i, j, t))) % 256;
-				var g = Math.floor(Math.abs(greenFunction(x, y, i, j, t))) % 256;
-				var b = Math.floor(Math.abs(blueFunction(x, y, i, j, t))) % 256;
-
+				try {
+					var r = Math.floor(Math.abs(redFunction(x, y, i, j, t))) % 256;
+				}
+				catch(e) { }
+				try {
+					var g = Math.floor(Math.abs(greenFunction(x, y, i, j, t))) % 256;
+				}
+				catch(e) { }
+				try {
+					var b = Math.floor(Math.abs(blueFunction(x, y, i, j, t))) % 256;
+				}
+				catch(e) { }
 				colors[i + j * displayDimensions.y] = RGB(r, g, b);
 			}
 		}
 	};
 
 	var draw = function () {
-		calculateColors();
-
 		for (var i = 0; i < displayDimensions.x; i++) {
 			for (var j = 0; j < displayDimensions.y; j++) {
 
@@ -98,9 +115,9 @@ window.onload = function() {
 	};
 
 	var updateFunctions = function() {
-		redFunctionText = document.getElementById('redFunc').value;
-		greenFunctionText = document.getElementById('greenFunc').value;
-		blueFunctionText = document.getElementById('blueFunc').value;
+		redFunctionText = redFunctionInput.value;
+		greenFunctionText = greenFunctionInput.value;
+		blueFunctionText = blueFunctionInput.value;
 
 		redFunction = createFunction(redFunctionText);
 		greenFunction = createFunction(greenFunctionText)
@@ -112,10 +129,23 @@ window.onload = function() {
 		return new Function("x", "y", "i", "j", "t", "return " + functionText + ";")
 	};
 
+	document.onkeydown = function(e) {
+		if (e.keyCode == 27) {
+			var display = input.style.display;
+
+			input.style.display = display == "none" ? "inherit" : "none";
+		}
+	};
+
 	window.onresize = onResize;
 
 	onResize();
 
 	updateFunctions();
-	drawIntevalId = setInterval(draw, 1);
+
+	drawIntevalId = setInterval(function() {
+		calculateColors();
+		updateFunctions();
+		draw();
+	}, 1);
 };

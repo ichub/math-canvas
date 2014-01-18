@@ -24,8 +24,6 @@ window.onload = function() {
 
 	var drawIntevalId = 0;
 
-	var paused = false;
-
 	var pointDimensions = {
 		x: 20,
 		y: 20,
@@ -134,14 +132,7 @@ window.onload = function() {
 
 	document.onkeydown = function(e) {
 		if (e.keyCode == 27) {
-			if (paused) {
-				input.style.display = "none";
-				paused = false;
-			}
-			else {
-				input.style.display = "inherit";
-				paused = true;
-			}
+			input.style.display = input.style.display == "none" ? "inherit" : "none";
 		}
 	};
 
@@ -152,10 +143,8 @@ window.onload = function() {
 	updateFunctions();
 
 	drawIntevalId = setInterval(function() {
-		if (!paused) {
-			calculateColors();
-			updateFunctions();
-			draw();
-		}
+		calculateColors();
+		updateFunctions();
+		draw();
 	}, 1);
 };

@@ -1,7 +1,8 @@
 window.onload = function() {
 	"use strict";
-
+	
 	var canvas = document.getElementById('myCanvas');
+
 	var ctx = canvas.getContext('2d');
 
 	var redFunctionInput = document.getElementById("redFunc");
@@ -22,6 +23,8 @@ window.onload = function() {
 	var amountOfTimesDrawn = 0
 
 	var drawIntevalId = 0;
+
+	var paused = false;
 
 	var pointDimensions = {
 		x: 20,
@@ -131,9 +134,14 @@ window.onload = function() {
 
 	document.onkeydown = function(e) {
 		if (e.keyCode == 27) {
-			var display = input.style.display;
-
-			input.style.display = display == "none" ? "inherit" : "none";
+			if (paused) {
+				input.style.display = "none";
+				paused = false;
+			}
+			else {
+				input.style.display = "inherit";
+				paused = true;
+			}
 		}
 	};
 
@@ -144,8 +152,10 @@ window.onload = function() {
 	updateFunctions();
 
 	drawIntevalId = setInterval(function() {
-		calculateColors();
-		updateFunctions();
-		draw();
+		if (!paused) {
+			calculateColors();
+			updateFunctions();
+			draw();
+		}
 	}, 1);
 };

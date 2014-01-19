@@ -7,9 +7,10 @@
 		<title>Math Canvas</title>
 	</head>
 	<body>
-		<div id="popout" style="display:none;">
+		<div id="popout">
 			<div id="blinds"></div>
 			<div id="input">
+				<div id="instructions">Press <span class="varName">Escape</span> to toggle this box. The textboxes below are functions which define the color of every box. <br/> <span class="varName">x</span> := <span class="varValue">x-position of box</span>. <span class="varName">y</span> := <span class="varValue">y-position of box</span>. <span class="varName">i</span> := <span class="varValue">x-index of box</span>. <span class="varName">j</span> := <span class="varValue">y-index of box</span>. <span class="varName">t</span> := <span class="varValue">amount of times the image has been updated</span>. The language used to evaluate the functions is <span class="varName">JavaScript</span>.</div>
 				<textarea id='redFunc'class='funcInput'>sin(x * y + t / 10) * 200</textarea>
 				<textarea id='greenFunc' class='funcInput'>sin(x * y + t / 10) * 200</textarea>
 				<textarea id='blueFunc' class='funcInput'>sin(x * y + t / 10) * 200</textarea>
